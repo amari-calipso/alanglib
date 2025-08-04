@@ -139,7 +139,7 @@ pub fn note(item: &impl WithPosition, msg: &str) -> Output {
 macro_rules! error {
     ($slf: expr, $item: expr, $msg: expr) => {
         {
-            $crate::report::error($item, $msg);
+            $crate::report::error(&$item, $msg);
             $slf.errors += 1;
         }
     };
