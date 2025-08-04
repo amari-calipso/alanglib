@@ -1,8 +1,8 @@
 use std::{rc::Rc, sync::Arc};
 
 #[derive(Clone, PartialEq, PartialOrd)]
-#[cfg_attr(feature = "astpos_bin_encode", derive(bincode::Encode))]
-#[cfg_attr(feature = "astpos_bin_decode", derive(bincode::Decode))]
+#[cfg_attr(feature = "sourcepos_bin_encode", derive(bincode::Encode))]
+#[cfg_attr(feature = "sourcepos_bin_decode", derive(bincode::Decode))]
 pub struct SourcePos {
     pub source: Rc<str>,
     pub filename: Rc<str>,
