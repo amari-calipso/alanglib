@@ -102,21 +102,21 @@ type Output = ();
 #[cfg(feature = "report_buf")]
 type Output = String;
 
-pub fn error_astpos(pos: &SourcePos, msg: &str) -> Output {
+pub fn error_pos(pos: &SourcePos, msg: &str) -> Output {
     report(
         pos, msg, "error",
         #[cfg(feature = "colored")] color::error
     )
 }
 
-pub fn warning_astpos(pos: &SourcePos, msg: &str) -> Output {
+pub fn warning_pos(pos: &SourcePos, msg: &str) -> Output {
     report(
         pos, msg, "warning",
         #[cfg(feature = "colored")] color::warning
     )
 }
 
-pub fn note_astpos(pos: &SourcePos, msg: &str) -> Output {
+pub fn note_pos(pos: &SourcePos, msg: &str) -> Output {
     report(
         pos, msg, "note",
         #[cfg(feature = "colored")] color::note
@@ -124,15 +124,15 @@ pub fn note_astpos(pos: &SourcePos, msg: &str) -> Output {
 }
 
 pub fn error(item: impl WithPosition, msg: &str) -> Output {
-    error_astpos(&item.get_pos(), msg)
+    error_pos(&item.get_pos(), msg)
 }
 
 pub fn warning(item: impl WithPosition, msg: &str) -> Output {
-    warning_astpos(&item.get_pos(), msg)
+    warning_pos(&item.get_pos(), msg)
 }
 
 pub fn note(item: impl WithPosition, msg: &str) -> Output {
-    note_astpos(&item.get_pos(), msg)
+    note_pos(&item.get_pos(), msg)
 }
 
 #[macro_export]
