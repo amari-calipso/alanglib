@@ -5,8 +5,8 @@ edition = "2024"
 
 [features]
 colored = ["dep:colored"]
-astpos_bin_encode = ["dep:bincode"]
-astpos_bin_decode = ["dep:bincode"]
+sourcepos_bin_encode = ["dep:bincode"]
+sourcepos_bin_decode = ["dep:bincode"]
 report_buf = []
 
 [dependencies]
