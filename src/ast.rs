@@ -30,3 +30,15 @@ impl SourcePos {
 pub trait WithPosition {
     fn get_pos(&self) -> SourcePos;
 }
+
+impl<T: WithPosition> WithPosition for &T {
+    fn get_pos(&self) -> SourcePos {
+        (*self).get_pos()
+    }
+}
+
+impl<T: WithPosition> WithPosition for &mut T {
+    fn get_pos(&self) -> SourcePos {
+        (**self).get_pos()
+    }
+}
