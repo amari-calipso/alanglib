@@ -1,0 +1,14 @@
+[package]
+name = "alanglib"
+version = "2025.8.4"
+edition = "2024"
+
+[features]
+colored = ["dep:colored"]
+astpos_bin_encode = ["dep:bincode"]
+astpos_bin_decode = ["dep:bincode"]
+report_buf = []
+
+[dependencies]
+bincode = { version = "*", optional = true }
+colored = { version = "3.0.0", optional = true }
