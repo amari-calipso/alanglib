@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use crate::ast::SourcePos;
+use crate::ast::{SourcePos, WithPosition};
 
 #[derive(Clone, PartialEq, PartialOrd, Hash, Eq)]
 pub struct Token<TokenType: std::fmt::Debug + Default> {
@@ -43,8 +43,10 @@ impl<TokenType: std::fmt::Debug + Default> Token<TokenType> {
     pub fn set_lexeme(&mut self, lexeme: &str) {
         self.lexeme = Rc::from(lexeme);
     }
+}
 
-    pub fn get_pos(&self) -> SourcePos {
+impl<TokenType: std::fmt::Debug + Default> WithPosition for Token<TokenType> {
+    fn get_pos(&self) -> SourcePos {
         SourcePos::new(
             Rc::clone(&self.source), 
             Rc::clone(&self.filename), 
