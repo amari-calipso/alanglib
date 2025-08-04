@@ -123,15 +123,15 @@ pub fn note_pos(pos: &SourcePos, msg: &str) -> Output {
     )
 }
 
-pub fn error(item: impl WithPosition, msg: &str) -> Output {
+pub fn error(item: &impl WithPosition, msg: &str) -> Output {
     error_pos(&item.get_pos(), msg)
 }
 
-pub fn warning(item: impl WithPosition, msg: &str) -> Output {
+pub fn warning(item: &impl WithPosition, msg: &str) -> Output {
     warning_pos(&item.get_pos(), msg)
 }
 
-pub fn note(item: impl WithPosition, msg: &str) -> Output {
+pub fn note(item: &impl WithPosition, msg: &str) -> Output {
     note_pos(&item.get_pos(), msg)
 }
 
