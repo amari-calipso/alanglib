@@ -1,4 +1,4 @@
-use std::rc::Rc;
+use std::{rc::Rc, sync::Arc};
 
 #[derive(Clone, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "astpos_bin_encode", derive(bincode::Encode))]
@@ -38,6 +38,24 @@ impl<T: WithPosition> WithPosition for &T {
 }
 
 impl<T: WithPosition> WithPosition for &mut T {
+    fn get_pos(&self) -> SourcePos {
+        (**self).get_pos()
+    }
+}
+
+impl<T: WithPosition> WithPosition for Box<T> {
+    fn get_pos(&self) -> SourcePos {
+        (**self).get_pos()
+    }
+}
+
+impl<T: WithPosition> WithPosition for Rc<T> {
+    fn get_pos(&self) -> SourcePos {
+        (**self).get_pos()
+    }
+}
+
+impl<T: WithPosition> WithPosition for Arc<T> {
     fn get_pos(&self) -> SourcePos {
         (**self).get_pos()
     }
