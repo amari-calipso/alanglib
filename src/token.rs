@@ -1,13 +1,13 @@
 use std::rc::Rc;
 
-use crate::ast::{SourcePos, WithPosition};
+use crate::{ast::{SourcePos, WithPosition}, SharedStr};
 
 #[derive(Clone, PartialEq, PartialOrd, Hash, Eq)]
 pub struct Token<TokenType: std::fmt::Debug + Default> {
-    pub source: Rc<str>,
-    pub filename: Rc<str>,
+    pub source: SharedStr,
+    pub filename: SharedStr,
     pub type_: TokenType,
-    pub lexeme: Rc<str>,
+    pub lexeme: SharedStr,
     pub pos: usize,
     pub end: usize,
     pub line: usize
@@ -20,20 +20,31 @@ impl<TokenType: std::fmt::Debug + Default> std::fmt::Debug for Token<TokenType> 
 }
 
 impl<TokenType: std::fmt::Debug + Default> Token<TokenType> {
-    pub fn new(source: Rc<str>, filename: Rc<str>, type_: TokenType, lexeme: Rc<str>, pos: usize, end: usize, line: usize) -> Self {
+    pub fn new(source: SharedStr, filename: SharedStr, type_: TokenType, lexeme: SharedStr, pos: usize, end: usize, line: usize) -> Self {
         Token { source, filename, type_, lexeme, pos, end, line }
     }
 
-    pub fn dummy(lexeme: Rc<str>) -> Self {
-        Token { source: Rc::from(""), filename: Rc::from(""), type_: TokenType::default(), lexeme, pos: 0, end: 1, line: 0 }
+    pub fn dummy(lexeme: SharedStr) -> Self {
+        Token { 
+            source: SharedStr::from(""), 
+            filename: SharedStr::from(""), 
+            type_: TokenType::default(), 
+            lexeme, pos: 0, end: 1, line: 0 
+        }
     }
 
     pub fn empty() -> Self {
-        Token::dummy(Rc::from(""))
+        Token::dummy(SharedStr::from(""))
     }
 
     pub fn from_type(type_: TokenType) -> Self {
-        Token { source: Rc::from(""), filename: Rc::from(""), type_, lexeme: Rc::from(""), pos: 0, end: 1, line: 0 }
+        Token { 
+            source: SharedStr::from(""), 
+            filename: SharedStr::from(""), 
+            type_, 
+            lexeme: SharedStr::from(""), 
+            pos: 0, end: 1, line: 0 
+        }
     }
 
     pub fn set_type(&mut self, type_: TokenType) {
@@ -48,8 +59,8 @@ impl<TokenType: std::fmt::Debug + Default> Token<TokenType> {
 impl<TokenType: std::fmt::Debug + Default> WithPosition for Token<TokenType> {
     fn get_pos(&self) -> SourcePos {
         SourcePos::new(
-            Rc::clone(&self.source), 
-            Rc::clone(&self.filename), 
+            SharedStr::clone(&self.source), 
+            SharedStr::clone(&self.filename), 
             self.pos, self.end, self.line
         )
     }

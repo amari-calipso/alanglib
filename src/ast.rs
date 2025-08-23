@@ -1,11 +1,13 @@
 use std::{rc::Rc, sync::Arc};
 
+use crate::SharedStr;
+
 #[derive(Clone, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "sourcepos_bin_encode", derive(bincode::Encode))]
 #[cfg_attr(feature = "sourcepos_bin_decode", derive(bincode::Decode))]
 pub struct SourcePos {
-    pub source: Rc<str>,
-    pub filename: Rc<str>,
+    pub source: SharedStr,
+    pub filename: SharedStr,
     pub start: usize,
     pub end: usize,
     pub line: usize
@@ -18,7 +20,7 @@ impl std::fmt::Debug for SourcePos {
 }
 
 impl SourcePos {
-    pub fn new(source: Rc<str>, filename: Rc<str>, start: usize, end: usize, line: usize) -> Self {
+    pub fn new(source: SharedStr, filename: SharedStr, start: usize, end: usize, line: usize) -> Self {
         SourcePos { source, filename, start, end, line }
     }
 

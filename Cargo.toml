@@ -1,6 +1,6 @@
 [package]
 name = "alanglib"
-version = "2025.8.4"
+version = "2025.8.23"
 edition = "2024"
 
 [features]
@@ -8,6 +8,7 @@ colored = ["dep:colored"]
 sourcepos_bin_encode = ["dep:bincode"]
 sourcepos_bin_decode = ["dep:bincode"]
 report_buf = []
+sync = []
 
 [dependencies]
 bincode = { version = "*", optional = true }
