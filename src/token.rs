@@ -1,5 +1,3 @@
-use std::rc::Rc;
-
 use crate::{ast::{SourcePos, WithPosition}, SharedStr};
 
 #[derive(Clone, PartialEq, PartialOrd, Hash, Eq)]
@@ -52,7 +50,7 @@ impl<TokenType: std::fmt::Debug + Default> Token<TokenType> {
     }
 
     pub fn set_lexeme(&mut self, lexeme: &str) {
-        self.lexeme = Rc::from(lexeme);
+        self.lexeme = SharedStr::from(lexeme);
     }
 }
 

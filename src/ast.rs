@@ -25,7 +25,11 @@ impl SourcePos {
     }
 
     pub fn empty() -> Self {
-        SourcePos { source: Rc::from(""), filename: Rc::from(""), start: 0, end: 1, line: 0 }
+        SourcePos { 
+            source: SharedStr::from(""), 
+            filename: SharedStr::from(""), 
+            start: 0, end: 1, line: 0 
+        }
     }
 }
 
