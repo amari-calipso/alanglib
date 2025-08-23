@@ -1,4 +1,9 @@
-use crate::{ast::{SourcePos, WithPosition}, SharedStr};
+use crate::ast::{self, SourcePos, WithPosition};
+
+#[cfg(not(feature = "sync_token"))]
+type SharedStr = std::rc::Rc<str>;
+#[cfg(feature = "sync_token")]
+type SharedStr = std::sync::Arc<str>;
 
 #[derive(Clone, PartialEq, PartialOrd, Hash, Eq)]
 pub struct Token<TokenType: std::fmt::Debug + Default> {
@@ -57,8 +62,8 @@ impl<TokenType: std::fmt::Debug + Default> Token<TokenType> {
 impl<TokenType: std::fmt::Debug + Default> WithPosition for Token<TokenType> {
     fn get_pos(&self) -> SourcePos {
         SourcePos::new(
-            SharedStr::clone(&self.source), 
-            SharedStr::clone(&self.filename), 
+            ast::SharedStr::from(self.source.as_ref()),
+            ast::SharedStr::from(self.filename.as_ref()),
             self.pos, self.end, self.line
         )
     }

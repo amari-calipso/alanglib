@@ -1,6 +1,9 @@
 use std::{rc::Rc, sync::Arc};
 
-use crate::SharedStr;
+#[cfg(not(feature = "sync_sourcepos"))]
+pub(crate) type SharedStr = std::rc::Rc<str>;
+#[cfg(feature = "sync_sourcepos")]
+pub(crate) type SharedStr = std::sync::Arc<str>;
 
 #[derive(Clone, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "sourcepos_bin_encode", derive(bincode::Encode))]

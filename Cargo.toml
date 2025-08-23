@@ -8,7 +8,8 @@ colored = ["dep:colored"]
 sourcepos_bin_encode = ["dep:bincode"]
 sourcepos_bin_decode = ["dep:bincode"]
 report_buf = []
-sync = []
+sync_token = []
+sync_sourcepos = []
 
 [dependencies]
 bincode = { version = "*", optional = true }
