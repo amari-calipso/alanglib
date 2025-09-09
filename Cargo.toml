@@ -1,6 +1,6 @@
 [package]
 name = "alanglib"
-version = "2025.8.23"
+version = "2025.9.10"
 edition = "2024"
 
 [features]
